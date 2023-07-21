@@ -29,29 +29,22 @@ function createGalleryHTMLMarkup(galleryItems) {
 
 function onClick(event) {
   event.preventDefault();
-  // console.dir(event.target);
   if (event.target.tagName !== "IMG") {
     return;
   }
-  // console.log(event.currentTarget);
-  console.log(event.target.dataset.source);
+  openModal(event.target.dataset.source);
 }
 
-function openModal() {
-  
+function openModal(target) {
+  const instance = basicLightbox.create(`
+    <img src="${target}" width="800" height="600">
+`)
+  instance.show();
+
+  document.addEventListener("keydown", event => {
+    if (event.code === "Escape") { 
+       instance.close();
+    }
+ })
+
 }
-
-
-// function onKey(evt) {
-//   console.log(evt);
-//   // if(evt.code === 'Escape' || evt.code === 'Enter'){
-//   //     container.classList.toggle('tog')
-//   // }
-
-//   if (evt.ctrlKey && (evt.code === "KeyC")) {
-//     console.log('try copy');
-//     evt.preventDefault()
-//     // alert("Копіюєш?");
-//     return;
-//   }
-// }
